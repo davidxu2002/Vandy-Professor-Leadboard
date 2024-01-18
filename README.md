@@ -1,1 +1,1 @@
-# Vandy-Professor-Leadboard
+# Vandy-Professor-Leaderboard
