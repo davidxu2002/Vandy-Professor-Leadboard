@@ -6,7 +6,7 @@ const routes : Route[] = [
         text: 'Leaderboard'
     },
     {
-        href: '/account',
+        href: '/professors',
         text: 'Professors'
     },
 ]
