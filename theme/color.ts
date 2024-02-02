@@ -3,10 +3,10 @@ export const colors = {
         50: "#F4F4F4",
     },
     background: {
-        500: "#FFFFFF",
+        500: "#DEF2F1",
     },
     navbar: {
-        500: "#F0F0F0",
+        500: "#3AAFA9",
     },
     text: {
         400: "#b3b3b3",

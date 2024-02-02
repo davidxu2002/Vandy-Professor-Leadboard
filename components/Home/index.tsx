@@ -9,9 +9,9 @@ const HomePage = () => {
         >
             <Heading
                 size={'lg'}
-                color={'black'}
+                color={'#2B7A78'}
             >
-                Vandy Professor Leaderboard
+                Vanderbilt Professor Leaderboard
             </Heading>
         </VStack>
     );
