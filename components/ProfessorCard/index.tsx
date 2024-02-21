@@ -66,7 +66,7 @@ const ProfessorCard: React.FC<Props> = ({ professorData, ranking }) => {
                             px={2}
                             py={1}
                         >
-                            {professorData.subject}
+                            SUBJECT
                         </Badge>
                     </Flex>
                     <HStack mt={4} spacing={4} justifyContent="flex-end">
@@ -103,9 +103,9 @@ const ProfessorCard: React.FC<Props> = ({ professorData, ranking }) => {
                     <ModalHeader>{professorData.name}</ModalHeader>
                     <ModalCloseButton />
                     <ModalBody>
-                        <Text color={'#2B7A78'} fontSize="md">
+                        {/* <Text color={'#2B7A78'} fontSize="md">
                             {professorData.subject}
-                        </Text>
+                        </Text> */}
                         <Text color={'#4A5568'} fontSize="md">
                             Some additional information or description about the professor goes here.
                         </Text>
