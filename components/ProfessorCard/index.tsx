@@ -4,7 +4,8 @@ import { Professor } from '@/types/Professor';
 import { motion } from 'framer-motion';
 import { AiOutlineArrowUp, AiOutlineArrowDown } from 'react-icons/ai';
 import { updateProfVote } from '@/services/professorVotes';
-
+import { VoteStatus } from '@/types/Vote';
+import CardModal from './CardModal/index';
 import Comments from "@/components/Home/Comments";
 import WriteComment from "@/components/Home/Comments/WriteComment";
 
@@ -17,7 +18,6 @@ const MotionCard = motion(Card); // Wrap Card with motion for animation
 
 const ProfessorCard: React.FC<Props> = ({ professorData, ranking }) => {
     const [isOpen, setIsOpen] = useState(false);
-    const [votes, setVotes] = useState(0);
 
     const handleOpenModal = () => {
         setIsOpen(true);
@@ -28,11 +28,7 @@ const ProfessorCard: React.FC<Props> = ({ professorData, ranking }) => {
     };
 
     const handleVote = (voteType: 'up' | 'down') => {
-        setVotes((prevVotes) => {
-            // Update the firebase count
-            // updateProfVote()
-            return voteType === 'up' ? prevVotes + 1 : prevVotes - 1;
-        });
+        updateProfVote(professorData.id, 'a', voteType === 'up' ? VoteStatus.UPVOTED : VoteStatus.DOWNVOTED);
     };
 
     return (
@@ -102,16 +98,20 @@ const ProfessorCard: React.FC<Props> = ({ professorData, ranking }) => {
                     </HStack>
                 </CardBody>
             </MotionCard>
-
-            <Modal isOpen={isOpen} onClose={handleCloseModal} size="lg">
+            <CardModal
+                professorData={professorData}
+                isOpen={isOpen}
+                handleCloseModal={handleCloseModal}
+            />
+            {/* <Modal isOpen={isOpen} onClose={handleCloseModal} size="lg">
                 <ModalOverlay />
                 <ModalContent>
                     <ModalHeader>{professorData.name}</ModalHeader>
                     <ModalCloseButton />
                     <ModalBody>
-                        {/* <Text color={'#2B7A78'} fontSize="md">
+                        <Text color={'#2B7A78'} fontSize="md">
                             {professorData.subject}
-                        </Text> */}
+                        </Text>
                         <Text color={'#4A5568'} fontSize="md">
                             Some additional information or description about the professor goes here.
                         </Text>
@@ -121,7 +121,7 @@ const ProfessorCard: React.FC<Props> = ({ professorData, ranking }) => {
                                     />
                     </ModalBody>
                 </ModalContent>
-            </Modal>
+            </Modal> */}
         </>
     );
 };
