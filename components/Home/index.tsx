@@ -44,12 +44,14 @@ const HomePage = () => {
       };
 
     return (
-        <div style={{ height: '680', overflowY: 'auto' }} onScroll={handleScroll}>
             <VStack
                 w={'100%'}
                 spacing={8}
                 align="center"
                 p={6}
+                height='690'
+                overflowY='auto'
+                onScroll={handleScroll}
             >
             <Heading color='#2B7A78'>Vanderbilt Professor Leaderboard</Heading>
             <HomeModal />
@@ -62,7 +64,6 @@ const HomePage = () => {
             ))}
             {endScroll && <Spinner></Spinner>}
         </VStack>
-        </div>
     );
 };
 
