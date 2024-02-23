@@ -51,7 +51,7 @@ const HomePage = () => {
                 align="center"
                 p={6}
             >
-            <Heading colorScheme='whiteAlpha'>Vanderbilt Professor Leaderboard</Heading>
+            <Heading color='#2B7A78'>Vanderbilt Professor Leaderboard</Heading>
             <HomeModal />
             {professors.slice(0, numProf).map((professor: Professor, index) => (
                 <ProfessorCard
