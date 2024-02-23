@@ -22,7 +22,7 @@ const WriteComment: React.FC<Props> = ({ reviewId }) => {
             w={'100%'}
         >
             <TextInput
-                label={"Write Comment"}
+                label={"Add Comment"}
                 placeholder={"Write your comment here"}
                 value={values.content}
                 onChange={(value) => setFieldValue("content", value)}
