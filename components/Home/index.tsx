@@ -1,9 +1,10 @@
-import React from 'react';
-import { Heading, VStack } from "@chakra-ui/react";
+import React, { useState, useEffect } from 'react';
+import { Heading, VStack, Button } from "@chakra-ui/react";
 import { Professor } from '@/types/Professor';
 import ProfessorCard from '../ProfessorCard/index';
 import useFeed from "@/hooks/feed/useFeed";
-import { useState } from 'react';
+import HomeModal from './modal';
+
 
 const HomePage = () => {
     const {
@@ -17,6 +18,11 @@ const HomePage = () => {
 
     const [numProf, setNumProf] = useState(100);
     const [endScroll, setEndScroll] = useState(false);
+    const [isModalOpen, setIsModalOpen] = useState(true);
+
+    useEffect(() => {
+        setIsModalOpen(true); // Open the modal when the component mounts
+    }, []);
 
     
       // Function to simulate loading more data
@@ -46,6 +52,8 @@ const HomePage = () => {
                 align="center"
                 p={6}
             > */}
+            {/* {isModalOpen && <HomeModal onClose={() => setIsModalOpen(false)} />} Render the modal conditionally */}
+            <HomeModal />
             {professors.slice(0, numProf).map((professor: Professor, index) => (
                 <ProfessorCard
                     key={index}
@@ -55,7 +63,7 @@ const HomePage = () => {
             ))}
             {endScroll && <li>Loading...</li>}
         {/* </VStack> */}
-    </div>
+        </div>
     );
 };
 
