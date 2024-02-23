@@ -51,7 +51,7 @@ const HomePage = () => {
                 align="center"
                 p={6}
             >
-            {/* {isModalOpen && <HomeModal onClose={() => setIsModalOpen(false)} />} Render the modal conditionally */}
+            <Heading colorScheme='whiteAlpha'>Vanderbilt Professor Leaderboard</Heading>
             <HomeModal />
             {professors.slice(0, numProf).map((professor: Professor, index) => (
                 <ProfessorCard
