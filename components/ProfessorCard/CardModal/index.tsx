@@ -12,16 +12,16 @@ interface Props {
 const CardModal: React.FC<Props> = ({ professorData, isOpen, handleCloseModal }) => {
     return (
         <>
-        <Modal isOpen={isOpen} onClose={handleCloseModal} size="lg">
+        <Modal isOpen={isOpen} onClose={handleCloseModal} size="xl" isCentered>
             <ModalOverlay />
             <ModalContent>
-                <ModalHeader>{professorData.name}</ModalHeader>
+                <ModalHeader paddingBottom="2">{professorData.name}</ModalHeader>
                 <ModalCloseButton />
-                <ModalBody>
+                <ModalBody paddingBottom="2">
                     {/* <Text color={'#2B7A78'} fontSize="md">
                         {professorData.subject}
                     </Text> */}
-                    <Text color={'#4A5568'} fontSize="md">
+                    <Text color={'#4A5568'} fontSize="md" marginBottom="4">
                         Some additional information or description about the professor goes here.
                     </Text>
                     <WriteComment reviewId={professorData.id} />

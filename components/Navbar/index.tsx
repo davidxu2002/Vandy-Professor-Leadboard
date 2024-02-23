@@ -13,7 +13,7 @@ const Navbar = () => {
         alignItems="center"
         w='100%'
         gap={4}
-        h='60px'
+        h='70px'
         bg='navbar.500'
         rounded='md'
         px={4}
