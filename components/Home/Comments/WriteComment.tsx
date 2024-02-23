@@ -6,7 +6,7 @@ import TextInput from "@/components/Utilities/FormComponents/TextInput";
 
 import useCreateComment from "@/hooks/mutators/useCreateComment";
 
-import filter from "leo-profanity";
+// import filter from "leo-profanity";
 
 
 interface Props {
@@ -22,16 +22,16 @@ const WriteComment: React.FC<Props> = ({ reviewId }) => {
             w={'100%'}
         >
             <TextInput
-                label={"Write Comment"}
+                label={"Add Comment"}
                 placeholder={"Write your comment here"}
                 value={values.content}
                 onChange={(value) => setFieldValue("content", value)}
                 error={touched.content ? errors.content : undefined}
-                onBlur={() => {
-                    var cleanComment = filter.clean(values.content)
-                    setFieldValue("content", cleanComment)
-                    setFieldTouched("content", true)
-                }}
+                // onBlur={() => {
+                //     var cleanComment = filter.clean(values.content)
+                //     setFieldValue("content", cleanComment)
+                //     setFieldTouched("content", true)
+                // }}
                 button={
                     <Button
                         colorScheme={"brand"}
