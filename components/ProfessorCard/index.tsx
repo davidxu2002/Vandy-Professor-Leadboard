@@ -5,6 +5,9 @@ import { motion } from 'framer-motion';
 import { AiOutlineArrowUp, AiOutlineArrowDown } from 'react-icons/ai';
 import { updateProfVote } from '@/services/professorVotes';
 
+import Comments from "@/components/Home/Comments";
+import WriteComment from "@/components/Home/Comments/WriteComment";
+
 interface Props {
     professorData: Professor;
     ranking: number;
@@ -112,6 +115,10 @@ const ProfessorCard: React.FC<Props> = ({ professorData, ranking }) => {
                         <Text color={'#4A5568'} fontSize="md">
                             Some additional information or description about the professor goes here.
                         </Text>
+                        <WriteComment reviewId={professorData.id} />
+                                    <Comments
+                                        reviewId={professorData.id}
+                                    />
                     </ModalBody>
                 </ModalContent>
             </Modal>
