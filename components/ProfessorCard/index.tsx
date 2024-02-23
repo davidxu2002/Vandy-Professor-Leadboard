@@ -3,6 +3,7 @@ import { Card, CardBody, Text, Flex, Badge, Modal, ModalOverlay, ModalContent, M
 import { Professor } from '@/types/Professor';
 import { motion } from 'framer-motion';
 import { AiOutlineArrowUp, AiOutlineArrowDown } from 'react-icons/ai';
+import { updateProfVote } from '@/services/professorVotes';
 
 interface Props {
     professorData: Professor;
@@ -25,6 +26,8 @@ const ProfessorCard: React.FC<Props> = ({ professorData, ranking }) => {
 
     const handleVote = (voteType: 'up' | 'down') => {
         setVotes((prevVotes) => {
+            // Update the firebase count
+            // updateProfVote()
             return voteType === 'up' ? prevVotes + 1 : prevVotes - 1;
         });
     };
@@ -81,7 +84,7 @@ const ProfessorCard: React.FC<Props> = ({ professorData, ranking }) => {
                             }
                         />
                         <Text color="gray.600" fontSize="lg">
-                            {votes}
+                            {professorData.votes}
                         </Text>
                         <IconButton
                             aria-label="Downvote"

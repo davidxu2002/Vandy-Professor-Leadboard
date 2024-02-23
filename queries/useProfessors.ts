@@ -24,7 +24,8 @@ const useProfessors = (props: UseProfessorsProps) => {
     // order reviews by score - can add ternary operators later to change sort criteria
     const queryParams: QueryConstraint[] = [
         orderBy(
-            SortBy.Votes
+            SortBy.Votes,
+            "desc"
         ),
     ];
 
