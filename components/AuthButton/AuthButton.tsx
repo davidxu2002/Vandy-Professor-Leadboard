@@ -18,31 +18,30 @@ const AuthButton = () => {
 
     const { user, isConnected, onSignOut } = useAuth()
 
-    if(!isConnected) {
+    if (!isConnected) {
         return (
             <SignInWithGoogleButton />
         )
     }
 
-    if(isConnected) {
+    if (isConnected) {
         return (
             <Menu
                 colorScheme="whiteAlpha"
             >
-                <MenuButton 
-                    as={Button} 
+                <MenuButton
+                    as={Button}
                     rightIcon={<ChevronDownIcon />}
                     colorScheme="whiteAlpha"
                 >
                     {user?.displayName}
                 </MenuButton>
-                <MenuList
-                    
-                >
-                    <MenuItem
-                        onClick={() => onSignOut()}
-                    >
+                <MenuList>
+                    <MenuItem onClick={() => onSignOut()}>
                         Sign Out
+                    </MenuItem>
+                    <MenuItem>
+                        My Profile
                     </MenuItem>
                 </MenuList>
             </Menu>
