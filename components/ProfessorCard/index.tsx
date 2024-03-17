@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Card, CardBody, Text, Flex, Badge, Modal, ModalOverlay, ModalContent, ModalHeader, ModalCloseButton, ModalBody, IconButton, HStack } from "@chakra-ui/react";
 import { Professor } from '@/types/Professor';
 import { motion } from 'framer-motion';
@@ -8,6 +8,7 @@ import { VoteStatus } from '@/types/Vote';
 import CardModal from './CardModal/index';
 import Comments from "@/components/Home/Comments";
 import WriteComment from "@/components/Home/Comments/WriteComment";
+import { fetchSubjects } from '@/services/coursesApi/fetch';
 
 interface Props {
     professorData: Professor;
@@ -18,6 +19,27 @@ const MotionCard = motion(Card); // Wrap Card with motion for animation
 
 const ProfessorCard: React.FC<Props> = ({ professorData, ranking }) => {
     const [isOpen, setIsOpen] = useState(false);
+    const [subjectName, setSubjectName] = useState<string>("");
+
+    useEffect(() => {
+        if (professorData) {
+            fetchSubject();
+        }
+    }, [professorData]);
+
+    const fetchSubject = async () => {
+        try {
+            const subjects = await fetchSubjects(professorData.id);
+            if (subjects.length > 0) {
+                setSubjectName(subjects[0].name);
+            } else {
+                setSubjectName("No Subject");
+            }
+        } catch (error) {
+            console.error("Error fetching subjects:", error);
+            setSubjectName("No Subject");
+        }
+    };
 
     const handleOpenModal = () => {
         setIsOpen(true);
@@ -68,7 +90,8 @@ const ProfessorCard: React.FC<Props> = ({ professorData, ranking }) => {
                             px={2}
                             py={1}
                         >
-                            SUBJECT
+                            {subjectName}
+
                         </Badge>
                     </Flex>
                     <HStack mt={4} spacing={4} justifyContent="flex-end">

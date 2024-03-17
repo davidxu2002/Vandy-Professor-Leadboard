@@ -1,4 +1,4 @@
-import {Course, Section} from "@/types/VandyAPI";
+import {Course, Section, Subject} from "@/types/VandyAPI";
 import {Professor} from "@/types/Professor";
 
 const baseEndpoint = "https://courses.clubfair.io/v1"
@@ -10,7 +10,8 @@ enum Endpoint {
     TERMS = "/terms",
     TERM_COURSES = "/term/courses",
     COURSE_SECTIONS = "/term/course/sections",
-    PROFESSOR = "/professor"
+    PROFESSOR = "/professor",
+    SUBJECT = "/subject"
 }
 
 const endpoint = (path: Endpoint) => baseEndpoint + path;
@@ -73,9 +74,26 @@ const fetchProfessor = async (professorId: string): Promise<Professor> => fetchD
 })
     .then(professor => ({
         id: professor.$id,
-        name: professor.name
+        name: professor.name, 
+        votes: professor.votes, 
+        subjects: professor.subjects
     }))
     .catch(() => ({
         name: "Unknown",
-        id: professorId
+        id: professorId, 
+        votes: 0, 
+        subjects: []
     }));
+
+export const fetchSubjects = async (professorId: string): Promise<Subject[]> => {
+    return await fetchData(Endpoint.SUBJECT, {
+        id: professorId
+    })
+    .then(subjects => subjects as Subject[])
+    .catch(() => {
+        console.error("Failed to fetch subjects for professor ID:", professorId);
+        return [];
+    });
+}
+    
+    

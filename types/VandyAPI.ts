@@ -30,6 +30,11 @@ export interface Section {
     professors: ProfessorRef[];
 }
 
+export interface Subject {
+    $id: string;
+    name: string;
+}
+
 export interface ProfessorRef {
     $id: string;
 }
@@ -37,4 +42,5 @@ export interface ProfessorRef {
 export interface Professor {
     $id: string;
     name: string;
+    subjects: ProfessorRef[];
 }
