@@ -23,9 +23,11 @@ const Navbar = () => {
             mr='auto'
         >
             {
-                routes.map((route, index) => (
+                routes.map((route) => (
+                // routes.map((route, index)) => (
                     <NavLink
-                        key={index}
+                        // key={index}
+                        key={route.href}
                         href={route.href}
                         text={route.text}
                     />

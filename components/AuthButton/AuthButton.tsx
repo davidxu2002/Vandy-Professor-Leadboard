@@ -14,7 +14,17 @@ import SignInWithGoogleButton from "@/components/AuthButton/SignInWithGoogleButt
 
 import useAuth from "@/hooks/useAuth";
 
+import Profile from "../Profile/index"
+
+// import { useNavigate } from 'react-router-dom';
+
 const AuthButton = () => {
+
+    // const navigate = useNavigate();
+
+    const handleMyProfileClick = () => {
+        window.location.href = "../pages/Home/index.tsx";
+    };
 
     const { user, isConnected, onSignOut } = useAuth()
 
@@ -40,7 +50,7 @@ const AuthButton = () => {
                     <MenuItem onClick={() => onSignOut()}>
                         Sign Out
                     </MenuItem>
-                    <MenuItem>
+                    <MenuItem onClick={handleMyProfileClick}>
                         My Profile
                     </MenuItem>
                 </MenuList>
