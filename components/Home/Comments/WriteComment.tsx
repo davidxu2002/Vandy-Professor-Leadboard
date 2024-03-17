@@ -27,11 +27,11 @@ const WriteComment: React.FC<Props> = ({ reviewId }) => {
                 value={values.content}
                 onChange={(value) => setFieldValue("content", value)}
                 error={touched.content ? errors.content : undefined}
-                // onBlur={() => {
-                //     var cleanComment = filter.clean(values.content)
-                //     setFieldValue("content", cleanComment)
-                //     setFieldTouched("content", true)
-                // }}
+                onBlur={() => {
+                    var cleanComment = values.content
+                    setFieldValue("content", cleanComment)
+                    setFieldTouched("content", true)
+                }}
                 button={
                     <Button
                         colorScheme={"brand"}
