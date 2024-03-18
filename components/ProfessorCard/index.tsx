@@ -29,7 +29,7 @@ const ProfessorCard: React.FC<Props> = ({ professorData, ranking }) => {
 
     const fetchSubject = async () => {
         try {
-            const subjects = await fetchSubjects(professorData.id);
+            const subjects = await fetchSubjects(100);
             if (subjects.length > 0) {
                 setSubjectName(subjects[0].name);
             } else {

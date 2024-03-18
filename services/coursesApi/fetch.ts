@@ -11,7 +11,7 @@ enum Endpoint {
     TERM_COURSES = "/term/courses",
     COURSE_SECTIONS = "/term/course/sections",
     PROFESSOR = "/professor",
-    SUBJECT = "/subject"
+    SUBJECTS = "/subjects"
 }
 
 const endpoint = (path: Endpoint) => baseEndpoint + path;
@@ -85,15 +85,15 @@ const fetchProfessor = async (professorId: string): Promise<Professor> => fetchD
         subjects: []
     }));
 
-export const fetchSubjects = async (professorId: string): Promise<Subject[]> => {
-    return await fetchData(Endpoint.SUBJECT, {
-        id: professorId
+export const fetchSubjects = async (page: number): Promise<Subject[]> => {
+    return await fetchData(Endpoint.SUBJECTS, {
+        pagination: {
+            page: page,
+            page_size: 100
+        }
     })
-    .then(subjects => subjects as Subject[])
-    .catch(() => {
-        console.error("Failed to fetch subjects for professor ID:", professorId);
-        return [];
-    });
+        .then(subjects => subjects as Subject[])
+        .then(subjects => subjects.flat())
 }
     
     
