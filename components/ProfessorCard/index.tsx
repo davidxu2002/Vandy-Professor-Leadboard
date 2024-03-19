@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Card, CardBody, Text, Flex, Badge, Modal, ModalOverlay, ModalContent, ModalHeader, ModalCloseButton, ModalBody, IconButton, HStack } from "@chakra-ui/react";
 import { Professor } from '@/types/Professor';
 import { motion } from 'framer-motion';
@@ -8,6 +8,8 @@ import { VoteStatus } from '@/types/Vote';
 import CardModal from './CardModal/index';
 import Comments from "@/components/Home/Comments";
 import WriteComment from "@/components/Home/Comments/WriteComment";
+import { fetchSubjects } from '@/services/coursesApi/fetch';
+import { getAuth, onAuthStateChanged, User } from 'firebase/auth';
 
 interface Props {
     professorData: Professor;
@@ -18,6 +20,41 @@ const MotionCard = motion(Card); // Wrap Card with motion for animation
 
 const ProfessorCard: React.FC<Props> = ({ professorData, ranking }) => {
     const [isOpen, setIsOpen] = useState(false);
+    const [subjectName, setSubjectName] = useState<string>("");
+    const [user, setUser] = useState<User | null>(null);
+
+    // useEffect(() => {
+    //     if (professorData) {
+    //         fetchSubject();
+    //     }
+    // }, [professorData]);
+
+    useEffect(() => {
+        // Initialize Firebase authentication
+        const auth = getAuth();
+
+        // Listen for authentication state changes
+        const unsubscribe = onAuthStateChanged(auth, (user) => {
+            setUser(user);
+        });
+
+        // Unsubscribe to avoid memory leaks
+        return () => unsubscribe();
+    }, []);
+
+    const fetchSubject = async () => {
+        try {
+            const subjects = await fetchSubjects(100);
+            if (subjects.length > 0) {
+                setSubjectName(subjects[0].name);
+            } else {
+                setSubjectName("No Subject");
+            }
+        } catch (error) {
+            console.error("Error fetching subjects:", error);
+            setSubjectName("No Subject");
+        }
+    };
 
     const handleOpenModal = () => {
         setIsOpen(true);
@@ -28,7 +65,11 @@ const ProfessorCard: React.FC<Props> = ({ professorData, ranking }) => {
     };
 
     const handleVote = (voteType: 'up' | 'down') => {
-        updateProfVote(professorData.id, 'a', voteType === 'up' ? VoteStatus.UPVOTED : VoteStatus.DOWNVOTED);
+        if (user) { 
+            updateProfVote(professorData.id, 'a', voteType === 'up' ? VoteStatus.UPVOTED : VoteStatus.DOWNVOTED);
+        } else {
+            console.log("Please log in to vote.");
+        }
     };
 
     return (
@@ -68,7 +109,8 @@ const ProfessorCard: React.FC<Props> = ({ professorData, ranking }) => {
                             px={2}
                             py={1}
                         >
-                            SUBJECT
+                            {subjectName}
+
                         </Badge>
                     </Flex>
                     <HStack mt={4} spacing={4} justifyContent="flex-end">
@@ -103,25 +145,6 @@ const ProfessorCard: React.FC<Props> = ({ professorData, ranking }) => {
                 isOpen={isOpen}
                 handleCloseModal={handleCloseModal}
             />
-            {/* <Modal isOpen={isOpen} onClose={handleCloseModal} size="lg">
-                <ModalOverlay />
-                <ModalContent>
-                    <ModalHeader>{professorData.name}</ModalHeader>
-                    <ModalCloseButton />
-                    <ModalBody>
-                        <Text color={'#2B7A78'} fontSize="md">
-                            {professorData.subject}
-                        </Text>
-                        <Text color={'#4A5568'} fontSize="md">
-                            Some additional information or description about the professor goes here.
-                        </Text>
-                        <WriteComment reviewId={professorData.id} />
-                                    <Comments
-                                        reviewId={professorData.id}
-                                    />
-                    </ModalBody>
-                </ModalContent>
-            </Modal> */}
         </>
     );
 };

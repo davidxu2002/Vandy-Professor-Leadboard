@@ -15,3 +15,6 @@ export const VOTES_COLLECTION = 'votes';
 
 // name of the reports collection in Firebase
 export const REPORTS_COLLECTION = 'reports';
+
+// name of the subjects collection in Firebase
+export const SUBJECTS_COLLECTION = 'subjects';
