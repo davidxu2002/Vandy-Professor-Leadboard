@@ -11,7 +11,7 @@ import moment from "moment/moment";
 
 import firestore from "@/firebase/firestore";
 
-import {COMMENTS_COLLECTION, REVIEWS_COLLECTION} from "@/firebase/firestore/collections";
+import {COMMENTS_COLLECTION, PROFESSORS_COLLECTION} from "@/firebase/firestore/collections";
 
 import {Comment} from "@/types/Comment";
 
@@ -41,7 +41,7 @@ const commentConverter: FirestoreDataConverter<Comment> = {
     },
 };
 
-const commentsCollection = (reviewId: string) => collection(firestore, REVIEWS_COLLECTION, reviewId, COMMENTS_COLLECTION)
+const commentsCollection = (reviewId: string) => collection(firestore, PROFESSORS_COLLECTION, reviewId, COMMENTS_COLLECTION)
     .withConverter(commentConverter);
 
 export default commentsCollection;

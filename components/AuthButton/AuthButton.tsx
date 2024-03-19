@@ -14,9 +14,8 @@ import SignInWithGoogleButton from "@/components/AuthButton/SignInWithGoogleButt
 
 import useAuth from "@/hooks/useAuth";
 
-import Profile from "../Profile/index"
-
 // import { useNavigate } from 'react-router-dom';
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 
 const AuthButton = () => {
 
