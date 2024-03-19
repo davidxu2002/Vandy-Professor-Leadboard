@@ -1,10 +1,11 @@
 import React from 'react';
 
-import {Skeleton, Text, VStack} from "@chakra-ui/react";
+import {Divider, Skeleton, Text, VStack} from "@chakra-ui/react";
 
 import Comment from "@/components/Home/Comments/Comment";
 
 import useComments from "@/hooks/queries/useComments";
+import SortByRadio from "@/components/Utilities/SortByRadio";
 
 interface Props {
     reviewId: string
@@ -12,30 +13,36 @@ interface Props {
 
 const Comments: React.FC<Props> = ({ reviewId }) => {
 
-    const { comments, loading } = useComments(reviewId);
-
-    if(loading) {
-        return (
-            <Skeleton />
-        )
-    }
+    const { comments, loading, sortByComment, setSortBy } = useComments(reviewId);
 
     return (
         <VStack
             w={'100%'}
+            alignItems={'flex-start'}
         >
+            <SortByRadio
+                sortByComment={sortByComment}
+                setSortBy={setSortBy}
+            />
+            <Divider />
             {
-                comments.length > 0 ? (
-                    comments.map((comment) => (
-                        <Comment
-                            key={comment.id}
-                            comment={comment}
-                        />
-                    ))
+                loading ? (
+                    <Skeleton
+                        w={'100%'}
+                    />
                 ) : (
-                    <Text>
-                        No Comments!
-                    </Text>
+                    comments.length > 0 ? (
+                        comments.map((comment) => (
+                            <Comment
+                                key={comment.id}
+                                comment={comment}
+                            />
+                        ))
+                    ) : (
+                        <Text>
+                            No Comments!
+                        </Text>
+                    )
                 )
             }
         </VStack>
