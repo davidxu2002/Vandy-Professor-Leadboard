@@ -10,6 +10,10 @@ import Comments from "@/components/Home/Comments";
 import WriteComment from "@/components/Home/Comments/WriteComment";
 import { fetchSubjects } from '@/services/coursesApi/fetch';
 import { getAuth, onAuthStateChanged, User } from 'firebase/auth';
+import db from '@/firebase/db';
+import { getFirestore, collection, doc, getDoc } from 'firebase/firestore';
+import firestore from '@/firebase/firestore';
+import { PROFESSORS_COLLECTION } from '@/firebase/firestore/collections';
 
 interface Props {
     professorData: Professor;
@@ -22,12 +26,6 @@ const ProfessorCard: React.FC<Props> = ({ professorData, ranking }) => {
     const [isOpen, setIsOpen] = useState(false);
     const [subjectName, setSubjectName] = useState<string>("");
     const [user, setUser] = useState<User | null>(null);
-
-    // useEffect(() => {
-    //     if (professorData) {
-    //         fetchSubject();
-    //     }
-    // }, [professorData]);
 
     useEffect(() => {
         // Initialize Firebase authentication
@@ -42,17 +40,34 @@ const ProfessorCard: React.FC<Props> = ({ professorData, ranking }) => {
         return () => unsubscribe();
     }, []);
 
-    const fetchSubject = async () => {
+    const fetchProfessorSubject = async (professorData: Professor): Promise<string> => {
         try {
-            const subjects = await fetchSubjects(100);
-            if (subjects.length > 0) {
-                setSubjectName(subjects[0].name);
+            const subjectData = professorData.subject;
+            
+            if (subjectData && subjectData.ref) {
+                return subjectData.ref;
             } else {
-                setSubjectName("No Subject");
+                return "No Subject";
             }
+            
         } catch (error) {
-            console.error("Error fetching subjects:", error);
-            setSubjectName("No Subject");
+            console.error("Error fetching professor subject:", error);
+            return "No Subject";
+        }
+    };
+
+    useEffect(() => {
+        fetchSubjectName(); // Call the function when the component mounts
+    }, [professorData]); // Call the function whenever professorData changes
+
+    // Function to fetch the subject name and set it in the state
+    const fetchSubjectName = async () => {
+        try {
+            const name = await fetchProfessorSubject(professorData); // Call the function
+            setSubjectName(name); // Set the subject name in the state
+        } catch (error) {
+            console.error("Error fetching subject name:", error);
+            setSubjectName("No Subject"); // Handle errors gracefully
         }
     };
 

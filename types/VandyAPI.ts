@@ -32,7 +32,8 @@ export interface Section {
 
 export interface Subject {
     $id: string;
-    name: string;
+    $ref: string;
+    ref: string;
 }
 
 export interface ProfessorRef {
