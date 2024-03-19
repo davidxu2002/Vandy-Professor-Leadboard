@@ -24,7 +24,8 @@ const subjectConverter: FirestoreDataConverter<Subject> = {
         const data = snapshot.data(options);
         return {
             $id: data.id,
-            name: data.name
+            $ref: data.$ref, 
+            ref: data.ref
         };
     },
 };

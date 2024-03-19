@@ -26,7 +26,7 @@ const professorConverter: FirestoreDataConverter<Professor> = {
             id: data.id,
             name: data.name,
             votes: data.votes,
-            subjects: data.subjects
+            subject: data.subject
         };
     },
 };
