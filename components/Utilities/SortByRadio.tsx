@@ -6,19 +6,22 @@ import {SortByComment} from "@/types/SortByComment";
 
 interface Props {
     sortByComment: SortByComment,
-    setSortBy: (sortByComment: SortByComment) => void,
+    setSortByComment: (sortByComment: SortByComment) => void,
 }
 
-const SortByRadio: React.FC<Props> = ({sortByComment, setSortBy}) => {
+const SortByRadio: React.FC<Props> = ({sortByComment, setSortByComment}) => {
     return (
         <HStack
             spacing={4}
+            marginTop={2}
         >
-            <Text>
+            <Text
+                color={'blackAlpha.900'}
+            >
                 Sort By:
             </Text>
             <RadioGroup
-                onChange={setSortBy}
+                onChange={setSortByComment}
                 value={sortByComment}
                 colorScheme={'brand'}
             >

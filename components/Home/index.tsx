@@ -5,8 +5,6 @@ import ProfessorCard from '../ProfessorCard/index';
 import useFeed from "@/hooks/feed/useFeed";
 import HomeModal from './modal';
 
-import { Routes } from "../../pages/Profile/Routes"
-
 
 const HomePage = () => {
     const {

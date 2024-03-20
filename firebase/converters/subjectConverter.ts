@@ -15,7 +15,7 @@ import { Subject } from "@/types/VandyAPI";
 // converts a subject document to a Subject object, allowing for typed queries and strict type checking
 const subjectConverter: FirestoreDataConverter<Subject> = {
     toFirestore(course: WithFieldValue<Subject>): DocumentData {
-        return { $id: course.$id, name: course.name };
+        return { $id: course.$id, ref: course.ref };
     },
     fromFirestore(
         snapshot: QueryDocumentSnapshot,
