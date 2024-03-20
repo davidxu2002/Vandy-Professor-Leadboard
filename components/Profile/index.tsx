@@ -31,10 +31,10 @@ const Profile = () => {
             spacing={4}
         >
             <Heading color='#2B7A78'>
-                This is your profile page
+                My Profile
             </Heading>
             <Text color='#2B7A78'>
-                You can see your past activity here
+                View your past activity here
             </Text>
         </VStack>
     );

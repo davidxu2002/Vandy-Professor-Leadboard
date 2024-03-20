@@ -20,7 +20,7 @@ const AuthButton = () => {
     // const navigate = useNavigate();
 
     const handleMyProfileClick = () => {
-        window.location.href = "../pages/Home/index.tsx";
+        window.location.href = "../profile";
     };
 
     const { user, isConnected, onSignOut } = useAuth()
