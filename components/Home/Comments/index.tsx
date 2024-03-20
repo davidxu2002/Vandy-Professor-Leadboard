@@ -13,7 +13,7 @@ interface Props {
 
 const Comments: React.FC<Props> = ({ reviewId }) => {
 
-    const { comments, loading, sortByComment, setSortBy } = useComments(reviewId);
+    const { comments, loading, sortByComment, setSortByComment } = useComments(reviewId);
 
     return (
         <VStack
@@ -22,7 +22,7 @@ const Comments: React.FC<Props> = ({ reviewId }) => {
         >
             <SortByRadio
                 sortByComment={sortByComment}
-                setSortBy={setSortBy}
+                setSortByComment={setSortByComment}
             />
             <Divider />
             {

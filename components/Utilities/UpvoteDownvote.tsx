@@ -11,10 +11,11 @@ interface Props {
     voteStatus: VoteStatus,
     score: number,
     iconSize?: string,
-    scoreSize?: string
+    scoreSize?: string, 
+    scoreColor?: string
 }
 
-const UpvoteDownvote: React.FC<Props> = ({ onUpvote, onDownvote, voteStatus, score, iconSize = "2rem", scoreSize }) => {
+const UpvoteDownvote: React.FC<Props> = ({ onUpvote, onDownvote, voteStatus, score, iconSize = "2rem", scoreSize, scoreColor }) => {
 
     const iconStyles: IconProps = {
         boxSize: iconSize,
@@ -49,6 +50,7 @@ const UpvoteDownvote: React.FC<Props> = ({ onUpvote, onDownvote, voteStatus, sco
             <Text
                 fontWeight={'bold'}
                 fontSize={scoreSize}
+                color={scoreColor}
             >
                 {score}
             </Text>

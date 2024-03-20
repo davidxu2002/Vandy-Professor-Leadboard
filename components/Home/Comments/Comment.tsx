@@ -12,13 +12,13 @@ interface Props {
 
 const Comment: React.FC<Props> = ({ comment }) => {
 
-    const borderColor = 'whiteAlpha.400';
-    const timeColor = 'whiteAlpha.700';
+    const borderColor = 'blackAlpha.400';
+    const timeColor = 'blackAlpha.700';
 
     return (
         <HStack
             w={'100%'}
-            borderWidth={0.5}
+            borderWidth={1}
             borderColor={borderColor}
             rounded={'md'}
             p={2}
@@ -29,6 +29,7 @@ const Comment: React.FC<Props> = ({ comment }) => {
             >
                 <Text
                     flex={1}
+                    color={'#4A5568'}
                 >
                     {comment.content}
                 </Text>

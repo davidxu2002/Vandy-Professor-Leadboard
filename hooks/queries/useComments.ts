@@ -12,7 +12,7 @@ import {SortByComment} from "@/types/SortByComment";
 // custom hook to get all comments for a review
 const useComments = (reviewId: string) => {
 
-    const [sortByComment, setSortBy] = useState<SortByComment>(SortByComment.Newest);
+    const [sortByComment, setSortByComment] = useState<SortByComment>(SortByComment.Newest);
 
     // get all comments for a review, ordered by score
     const [comments, loading, error] = useCollectionData(query(
@@ -27,7 +27,7 @@ const useComments = (reviewId: string) => {
         // filter out any comments with undefined IDs (which must be added to the record after creation)
         comments: comments ? comments.filter(comment => comment.id !== undefined) : [],
         sortByComment,
-        setSortBy,
+        setSortByComment,
         loading,
         error,
     }
