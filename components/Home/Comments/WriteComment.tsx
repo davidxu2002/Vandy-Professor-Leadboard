@@ -1,6 +1,6 @@
 import React from 'react';
 
-import {Button, HStack} from "@chakra-ui/react";
+import {Button, HStack, LightMode} from "@chakra-ui/react";
 
 import TextInput from "@/components/Utilities/FormComponents/TextInput";
 
@@ -33,13 +33,17 @@ const WriteComment: React.FC<Props> = ({ reviewId }) => {
                     setFieldTouched("content", true)
                 }}
                 button={
-                    <Button
-                        colorScheme={"brand"}
-                        isDisabled={disabled}
-                        onClick={() => handleSubmit()}
-                    >
-                        Submit
-                    </Button>
+                    <LightMode>
+                        <Button 
+                            bg="gray.500"
+                            color = 'black'
+                            _hover={{bg: '#2B7A78'}}
+                            isDisabled={disabled}
+                            onClick={() => handleSubmit()}
+                        >
+                            Submit
+                        </Button>
+                    </LightMode>
                 }
             />
         </HStack>
