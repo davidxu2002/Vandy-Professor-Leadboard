@@ -30,20 +30,20 @@ export const getToastMessage = (
     if(newVoteStatus === VoteStatus.NONE) {
         const voteType = currentStatus === VoteStatus.UPVOTED ? "Upvote" : "Downvote";
         return {
-            title: success ? `${voteType} Removed` : `${voteType} Failed`,
+            title: success ?  `${voteType} Failed` : `${voteType} Removed`,
             description: success
-                ? `Your ${voteType.toLowerCase()} has been removed.`
-                : `Your ${voteType.toLowerCase()} could not be removed.`,
-            status: success ? "success" : "error",
+                ? `Your ${voteType.toLowerCase()} could not be removed.`
+                : `Your ${voteType.toLowerCase()} has been removed.`,
+            status: success ? "error" : "success",
             duration: 3000,
             isClosable: true,
         }
     } else {
         const voteType = newVoteStatus === VoteStatus.UPVOTED ? "Upvote" : "Downvote";
         return {
-            title: success ? `${voteType} Successful` : `${voteType} Failed`,
-            description: success ? `Your ${voteType.toLowerCase()} has been recorded.` : `Your ${voteType.toLowerCase()} could not be recorded.`,
-            status: success ? "success" : "error",
+            title: success ?  `${voteType} Failed` : `${voteType} Successful`,
+            description: success ?  `Your ${voteType.toLowerCase()} could not be recorded.` : `Your ${voteType.toLowerCase()} has been recorded.`,
+            status: success ? "error" : "success",
             duration: 3000,
             isClosable: true,
         }
