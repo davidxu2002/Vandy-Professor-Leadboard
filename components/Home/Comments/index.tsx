@@ -1,6 +1,6 @@
 import React from 'react';
 
-import {Divider, Skeleton, Text, VStack} from "@chakra-ui/react";
+import {Card, Divider, Skeleton, Text, VStack} from "@chakra-ui/react";
 
 import Comment from "@/components/Home/Comments/Comment";
 

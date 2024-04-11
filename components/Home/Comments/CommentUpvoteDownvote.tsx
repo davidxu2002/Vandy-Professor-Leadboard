@@ -2,7 +2,7 @@ import React from 'react';
 
 import UpvoteDownvote from "@/components/Utilities/UpvoteDownvote";
 
-import useVoteComment from "@/hooks/mutators/useCommentReview";
+import useVoteComment from "@/hooks/mutators/useVoteComment";
 
 interface Props {
     reviewId: string

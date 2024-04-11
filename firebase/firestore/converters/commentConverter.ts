@@ -36,11 +36,11 @@ const commentConverter: FirestoreDataConverter<Comment> = {
             userId: data.userId,
             content: data.content,
             score: data.score,
+            // timestamps are delivered as Moment.js objects to allow for easy formatting
             createdAt: moment.unix(data.createdAt.seconds),
         };
     },
 };
-
 const commentsCollection = (reviewId: string) => collection(firestore, PROFESSORS_COLLECTION, reviewId, COMMENTS_COLLECTION)
     .withConverter(commentConverter);
 

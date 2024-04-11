@@ -1,6 +1,6 @@
 import {useToast} from "@chakra-ui/react";
 
-import {getToastMessage, getVoteIncrement} from "@/services/VoteUtils";
+import {getToastMessage, getVoteIncrement} from "@/services/voteUtils";
 
 import {Vote, VoteInput, VoteStatus} from "@/types/Vote";
 
