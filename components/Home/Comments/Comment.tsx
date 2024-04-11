@@ -35,7 +35,7 @@ const Comment: React.FC<Props> = ({ comment }) => {
                 </Text>
                 <Text
                     fontSize={'xs'}
-                    color={timeColor}
+                    color={'black'}
                 >
                     {comment.createdAt.fromNow()}
                 </Text>

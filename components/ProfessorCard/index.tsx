@@ -8,21 +8,25 @@ import { VoteStatus } from '@/types/Vote';
 import CardModal from './CardModal/index';
 import Comments from "@/components/Home/Comments";
 import WriteComment from "@/components/Home/Comments/WriteComment";
-import { fetchSubjects } from '@/services/coursesApi/fetch';
 import { getAuth, onAuthStateChanged, User } from 'firebase/auth';
 import db from '@/firebase/db';
-import { getFirestore, collection, doc, getDoc } from 'firebase/firestore';
-import firestore from '@/firebase/firestore';
+import { getFirestore, collection, doc, getDoc, where, query} from 'firebase/firestore';
+import {useCollectionData} from "react-firebase-hooks/firestore";
+
+
 import { PROFESSORS_COLLECTION } from '@/firebase/firestore/collections';
+import app from '@/node_modules/next/app';
 
 interface Props {
     professorData: Professor;
-    ranking: number;
+    setSubjectId?: (subjectId: string | null) => void;
+    setProfessor?: (professor: Professor | null) => void;
+    onToggleAlert: (toggled: boolean) => void;
 }
 
 const MotionCard = motion(Card); // Wrap Card with motion for animation
 
-const ProfessorCard: React.FC<Props> = ({ professorData, ranking }) => {
+const ProfessorCard: React.FC<Props> = ({ professorData, setSubjectId, setProfessor, onToggleAlert }) => {
     const [isOpen, setIsOpen] = useState(false);
     const [subjectName, setSubjectName] = useState<string>("");
     const [user, setUser] = useState<User | null>(null);
@@ -79,19 +83,106 @@ const ProfessorCard: React.FC<Props> = ({ professorData, ranking }) => {
         setIsOpen(false);
     };
 
+    // const handlePlaceChangeUp = () => {
+    //     let current_place = professorData.current_place;
+    //     let rankAbove = current_place - 1;
+
+    //     // This needs to be abstracted somewhere
+    //     const profsRef = collection(db, PROFESSORS_COLLECTION);
+    //     while (rankAbove >= 0) {
+    //         // Get the professor document with the rank just above ours
+    //         const [professors, loading, error] = useCollectionData(query(profsRef,
+    //             where('current_place', '==', rankAbove)
+    //         ));
+    //         const professor = professors[0];
+    //         // If the professor one rank above has >= votes or we are 0, update the upvoted professor's current place and stop looping.
+    //         if (doc.data().votes >= professorData.votes || rankAbove == 0) {
+    //             const [professors, loading, error] = useCollectionData(query(profsRef,
+    //                 where('id', '==', professorData.id)
+    //             ));
+    //             const query2 = profsRef.where('id', '==', professorData.id);
+    //             query2.get()
+    //                 .then((querySnapshot) => {
+    //                     const doc = querySnapshot.docs[0];
+    //                     doc.ref
+    //                         .update({
+    //                             current_place: current_place
+    //                     });
+    //                 });
+    //             return;
+    //             } else {
+    //                 // If the professor one rank above has less votes, update his place to the upvoted professors.
+    //                 // Continue iterating up the rankings.
+    //                 // increment/decrement places
+    //                 docRef.update({
+    //                     current_place: current_place
+    //                 });
+    //                 rankAbove--;
+    //                 current_place--;
+    //             }});
+    //     }
+    // };
+
+    // const handlePlaceChangeDown = () => {
+    //     let current_place = professorData.current_place;
+    //     let rankBelow = current_place + 1;
+
+    //     // This needs to be abstracted somewhere
+    //     const profsRef = collection(db, PROFESSORS_COLLECTION);
+    //     while (rankBelow <= 1044) { // Make this a constant (or just rework this awful code entirely)
+    //         // Get the professor document with the rank just below ours
+    //         profsRef
+    //          .where('current_place', '==', rankBelow)
+    //          .get()
+    //          .then((querySnapshot) => {
+    //             const doc = querySnapshot.docs[0];
+    //             const docRef = doc.ref;
+    //             // If the professor one rank above has <= votes or no professors are ranked below, update the downvoted professor's current place and stop looping.
+    //             if (doc.data().votes <= professorData.votes || rankBelow == 1044) { // again, change this constant pls.
+    //                 profsRef
+    //                     .where('id', '==', professorData.id)
+    //                     .get()
+    //                     .then((querySnapshot) => {
+    //                         const doc = querySnapshot.docs[0];
+    //                         doc.ref
+    //                             .update({
+    //                                 current_place: current_place
+    //                         });
+    //                     });
+    //                 return;
+    //             } else {
+    //                 // If the professor one rank below has more votes, update his place to the downvoted professor's.
+    //                 // Continue iterating up the rankings.
+    //                 // increment/decrement places
+    //                 docRef.update({
+    //                     current_place: current_place
+    //                 });
+    //                 rankBelow++;
+    //                 current_place++;
+    //             }});
+    //     }
+    // };
+
     const handleVote = (voteType: 'up' | 'down') => {
-        if (user) { 
+        if (user) {
             updateProfVote(professorData.id, 'a', voteType === 'up' ? VoteStatus.UPVOTED : VoteStatus.DOWNVOTED);
+            if (voteType == 'up') {
+                // handlePlaceChangeUp();
+            }
+            else {
+                // handlePlaceChangeDown();
+            }
         } else {
             console.log("Please log in to vote.");
+            onToggleAlert(true);
         }
     };
 
     return (
         <>
             <MotionCard
-                whileHover={{ scale: 1.1 }} // Scale on hover
-                width={500}
+                // whileHover={{ scale: 1.1 }} // Scale on hover
+                width={'100%'}
                 height={150}
                 borderRadius="lg"
                 boxShadow="md"
@@ -115,7 +206,7 @@ const ProfessorCard: React.FC<Props> = ({ professorData, ranking }) => {
                             fontSize="xl"
                             fontWeight="bold"
                         >
-                            {ranking}. {professorData.name}
+                            {professorData.current_place}. {professorData.name}
                         </Text>
                         <Badge
                             colorScheme="teal"
