@@ -10,22 +10,22 @@ import {SortByComment} from "@/types/SortByComment";
 
 
 // custom hook to get all comments for a review
-const useComments = (reviewId: string) => {
+const useUserComments = (userId: string) => {
 
     const [sortByComment, setSortByComment] = useState<SortByComment>(SortByComment.Newest);
 
-    if (!reviewId) {
-        console.error("reviewId is undefined or empty in useComments hook");
-        return { comments: [], sortByComment, setSortByComment, loading: false, error: new Error("reviewId is undefined or empty") };
+    if (!userId) {
+        console.error("userId is undefined or empty in useComments hook");
+        return { comments: [], sortByComment, setSortByComment, loading: false, error: new Error("userId is undefined or empty") };
     }
 
     // get all comments for a review, ordered by score
     const [comments, loading, error] = useCollectionData(query(
-        commentsCollection(reviewId),
-        orderBy(
-            sortByComment === SortByComment.Newest ? 'createdAt' : 'score',
-            'desc'
-        )
+        commentsCollection(userId),
+        // orderBy(
+        //     sortByComment === SortByComment.Newest ? 'createdAt' : 'score',
+        //     'desc'
+        // )
     ));
 
     return {
@@ -38,4 +38,4 @@ const useComments = (reviewId: string) => {
     }
 }
 
-export default useComments;
+export default useUserComments;

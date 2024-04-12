@@ -35,7 +35,7 @@ const WriteComment: React.FC<Props> = ({ reviewId }) => {
                 button={
                     <LightMode>
                         <Button 
-                            bg="gray.500"
+                            bg="gray.300"
                             color = 'black'
                             _hover={{bg: '#2B7A78'}}
                             isDisabled={disabled}

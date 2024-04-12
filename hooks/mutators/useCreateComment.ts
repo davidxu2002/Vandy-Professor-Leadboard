@@ -53,7 +53,6 @@ const useCreateComment = (reviewId: string) => {
             if(success) {
                 toast({
                     title: 'Comment Added',
-                    description: 'Your comment has been added to the review.',
                     status: 'success',
                     duration: 5000,
                     isClosable: true,
