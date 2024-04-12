@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect } from 'react';
 import {
     useDisclosure,
     Modal,
@@ -13,21 +13,18 @@ import {
 } from '@chakra-ui/react';
 import Cookies from 'js-cookie';
 
-function HomeModal() {
-    const { isOpen, onClose } = useDisclosure({ defaultIsOpen: true });
-    // const [hasSeenModal, setHasSeenModal] = useState(false);
+const HomeModal = () => {
+    const { isOpen, onOpen, onClose } = useDisclosure();
 
-    // useEffect(() => {
-    //     const hasSeenModalBefore = Cookies.get('hasSeenModal');
-    //     if (hasSeenModalBefore) {
-    //         // If the user has seen the modal before, don't open it
-    //         setHasSeenModal(true);
-    //     } else {
-    //         // If the user hasn't seen the modal before, open it and set the flag
-    //         Cookies.set('hasSeenModal', 'true', { expires: 365 }); // Cookie expires in 1 year
-    //         setHasSeenModal(false);
-    //     }
-    // }, []);
+    useEffect(() => {
+        // Check if the modalShown cookie exists
+        const modalShown = Cookies.get('modalShown');
+        if (!modalShown) {
+            // If the cookie doesn't exist, show the modal and set the cookie
+            onOpen();
+            Cookies.set('modalShown', 'true', { expires: 7 }); // Cookie expires in 7 days
+        }
+    }, [onOpen]);
 
     return (
         <Modal isOpen={isOpen} onClose={onClose} size="lg" isCentered>
