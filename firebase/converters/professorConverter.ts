@@ -11,11 +11,24 @@ import firestore from "@/firebase/firestore";
 import {PROFESSORS_COLLECTION} from "@/firebase/firestore/collections";
 
 import {Professor} from "@/types/Professor";
-
 // converts a professor document to a Professor object, allowing for typed queries and strict type checking
 const professorConverter: FirestoreDataConverter<Professor> = {
-    toFirestore(course: WithFieldValue<Professor>): DocumentData {
-        return { id: course.id, name: course.name };
+    toFirestore(professor: WithFieldValue<Professor>): DocumentData {
+        return { 
+            id: professor.id, 
+            name: professor.name, 
+            votes: professor.votes, 
+            subject: {
+                $id: professor.subject.$id,
+                $ref: professor.subject.$ref,
+                ref: professor.subject.ref,
+            },
+            current_place: professor.current_place,
+            day_start: {
+                place: professor.day_start.place,
+                score: professor.day_start.score
+            }
+        };
     },
     fromFirestore(
         snapshot: QueryDocumentSnapshot,
@@ -26,7 +39,16 @@ const professorConverter: FirestoreDataConverter<Professor> = {
             id: data.id,
             name: data.name,
             votes: data.votes,
-            subject: data.subject
+            subject: {
+                $id: data.subject.id,
+                $ref: data.subject.$ref,
+                ref: data.subject.ref,
+            },
+            current_place: data.current_place,
+            day_start: {
+                place: data.day_start.place,
+                score: data.day_start.score
+            }
         };
     },
 };

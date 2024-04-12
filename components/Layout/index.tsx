@@ -23,7 +23,6 @@ const Layout: React.FC<Props> = ({ children, authGate }) => {
         >
             <Flex
                 direction={'column'}
-                gap={8}
             >
                 <Navbar/>
                 {

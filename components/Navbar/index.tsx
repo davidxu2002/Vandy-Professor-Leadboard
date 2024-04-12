@@ -12,7 +12,7 @@ const Navbar = () => {
     <Flex
         alignItems="center"
         w='100%'
-        gap={4}
+        gap={1}
         h='70px'
         bg='navbar.500'
         rounded='md'

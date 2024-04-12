@@ -4,20 +4,25 @@ import useProfessors from "@/queries/useProfessors";
 
 import {Professor} from "@/types/Professor";
 
-// custom hook to handle the reviews feed from the home page
-// allows users to filter by courseid
+// Gets all the data
+// allows users to filter by subjectId
 const useFeed = () => {
-    const [courseId, setCourseId] = useState<string | null>(null);
+    const [subjectId, setSubjectId] = useState<string | null>(null);
+    const [professor, setProfessor] = useState<Professor | null>(null);
 
     const { professors, loading, error, sortBy, setSortBy } = useProfessors({
-        courseId
+        subjectId: subjectId,
+        professor: professor
     });
 
+
     return {
-        courseId,
-        setCourseId,
+        subjectId,
+        setSubjectId,
         sortBy,
         setSortBy,
+        professor,
+        setProfessor,
         professors,
         loading,
         error

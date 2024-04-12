@@ -6,8 +6,8 @@ const routes : Route[] = [
         text: 'Leaderboard'
     },
     {
-        href: '/professors',
-        text: 'Professors'
+        href: '/statistics',
+        text: 'Statistics'
     },
 ]
 
