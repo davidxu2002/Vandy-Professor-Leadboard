@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Card, CardBody, Text, Flex, Badge, Modal, ModalOverlay, ModalContent, ModalHeader, ModalCloseButton, ModalBody, IconButton, HStack } from "@chakra-ui/react";
+import { Box, Card, CardBody,CardFooter, Divider, Text, Flex, Badge, Modal, ModalOverlay, ModalContent, ModalHeader, ModalCloseButton, ModalBody, IconButton, HStack } from "@chakra-ui/react";
 import { Professor } from '@/types/Professor';
 import { motion } from 'framer-motion';
 import { AiOutlineArrowUp, AiOutlineArrowDown } from 'react-icons/ai';
@@ -83,86 +83,6 @@ const ProfessorCard: React.FC<Props> = ({ professorData, setSubjectId, setProfes
         setIsOpen(false);
     };
 
-    // const handlePlaceChangeUp = () => {
-    //     let current_place = professorData.current_place;
-    //     let rankAbove = current_place - 1;
-
-    //     // This needs to be abstracted somewhere
-    //     const profsRef = collection(db, PROFESSORS_COLLECTION);
-    //     while (rankAbove >= 0) {
-    //         // Get the professor document with the rank just above ours
-    //         const [professors, loading, error] = useCollectionData(query(profsRef,
-    //             where('current_place', '==', rankAbove)
-    //         ));
-    //         const professor = professors[0];
-    //         // If the professor one rank above has >= votes or we are 0, update the upvoted professor's current place and stop looping.
-    //         if (doc.data().votes >= professorData.votes || rankAbove == 0) {
-    //             const [professors, loading, error] = useCollectionData(query(profsRef,
-    //                 where('id', '==', professorData.id)
-    //             ));
-    //             const query2 = profsRef.where('id', '==', professorData.id);
-    //             query2.get()
-    //                 .then((querySnapshot) => {
-    //                     const doc = querySnapshot.docs[0];
-    //                     doc.ref
-    //                         .update({
-    //                             current_place: current_place
-    //                     });
-    //                 });
-    //             return;
-    //             } else {
-    //                 // If the professor one rank above has less votes, update his place to the upvoted professors.
-    //                 // Continue iterating up the rankings.
-    //                 // increment/decrement places
-    //                 docRef.update({
-    //                     current_place: current_place
-    //                 });
-    //                 rankAbove--;
-    //                 current_place--;
-    //             }});
-    //     }
-    // };
-
-    // const handlePlaceChangeDown = () => {
-    //     let current_place = professorData.current_place;
-    //     let rankBelow = current_place + 1;
-
-    //     // This needs to be abstracted somewhere
-    //     const profsRef = collection(db, PROFESSORS_COLLECTION);
-    //     while (rankBelow <= 1044) { // Make this a constant (or just rework this awful code entirely)
-    //         // Get the professor document with the rank just below ours
-    //         profsRef
-    //          .where('current_place', '==', rankBelow)
-    //          .get()
-    //          .then((querySnapshot) => {
-    //             const doc = querySnapshot.docs[0];
-    //             const docRef = doc.ref;
-    //             // If the professor one rank above has <= votes or no professors are ranked below, update the downvoted professor's current place and stop looping.
-    //             if (doc.data().votes <= professorData.votes || rankBelow == 1044) { // again, change this constant pls.
-    //                 profsRef
-    //                     .where('id', '==', professorData.id)
-    //                     .get()
-    //                     .then((querySnapshot) => {
-    //                         const doc = querySnapshot.docs[0];
-    //                         doc.ref
-    //                             .update({
-    //                                 current_place: current_place
-    //                         });
-    //                     });
-    //                 return;
-    //             } else {
-    //                 // If the professor one rank below has more votes, update his place to the downvoted professor's.
-    //                 // Continue iterating up the rankings.
-    //                 // increment/decrement places
-    //                 docRef.update({
-    //                     current_place: current_place
-    //                 });
-    //                 rankBelow++;
-    //                 current_place++;
-    //             }});
-    //     }
-    // };
-
     const handleVote = (voteType: 'up' | 'down') => {
         if (user) {
             updateProfVote(professorData.id, 'a', voteType === 'up' ? VoteStatus.UPVOTED : VoteStatus.DOWNVOTED);
@@ -181,70 +101,89 @@ const ProfessorCard: React.FC<Props> = ({ professorData, setSubjectId, setProfes
     return (
         <>
             <MotionCard
-                // whileHover={{ scale: 1.1 }} // Scale on hover
+                whileHover={{ scale: .99 }} // Scale on hover
                 width={'100%'}
-                height={150}
                 borderRadius="lg"
                 boxShadow="md"
                 backgroundColor="#F7FAFC"
-                p={4}
+                p={1}
                 cursor="pointer"
                 onClick={handleOpenModal}
             >
-                <CardBody>
-                    <Flex
-                        direction="row"
-                        alignItems="center"
-                        justifyContent="space-between"
-                        width="100%"
-                        borderBottom="1px solid #CBD5E0"
-                        pb={2}
-                        mb={2}
-                    >
-                        <Text
-                            color={'#2B7A78'}
-                            fontSize="xl"
-                            fontWeight="bold"
-                        >
-                            {professorData.current_place}. {professorData.name}
-                        </Text>
-                        <Badge
-                            colorScheme="teal"
-                            fontSize="sm"
-                            borderRadius="full"
-                            px={2}
-                            py={1}
-                        >
-                            {subjectName}
+                <CardBody
 
-                        </Badge>
-                    </Flex>
-                    <HStack mt={4} spacing={4} justifyContent="flex-end">
-                        <IconButton
-                            aria-label="Upvote"
-                            color="gray.600"
-                            icon={<AiOutlineArrowUp />}
-                            onClick={(event: { stopPropagation: () => void; }) => {
-                                event.stopPropagation();
-                                handleVote('up');
-                            }
-                            }
-                        />
-                        <Text color="gray.600" fontSize="lg">
-                            {professorData.votes}
-                        </Text>
-                        <IconButton
-                            aria-label="Downvote"
-                            color="gray.600"
-                            icon={<AiOutlineArrowDown />}
-                            onClick={(event: { stopPropagation: () => void; }) => {
-                                event.stopPropagation();
-                                handleVote('down');
-                            }
-                            }
-                        />
-                    </HStack>
-                </CardBody>
+                >
+    <Flex
+        direction="row"
+        alignItems="center"
+        justifyContent="space-between"
+        width="100%"
+        pb={2}
+        mb={2}
+    >
+        <Box>
+            <Text
+                color="gray.700"
+                fontSize="xl"
+                fontWeight="bold"
+            >
+                            <Badge 
+                            fontSize='xlg'
+                            variant='subtle'
+                            colorScheme='gray'
+                            mr='3'
+                            >{professorData.current_place}.</Badge> 
+                            <Badge 
+                            fontSize='xlg'
+                            variant='subtle'
+                            colorScheme='gray'
+                            mr='3'
+                            >{professorData.name}</Badge> 
+                            {/* {professorData.name} */}
+            </Text>
+        </Box>
+        <Badge
+            colorScheme="teal"
+            fontSize="sm"
+            borderRadius="full"
+            px={2}
+            py={1}
+        >
+            {subjectName}
+        </Badge>
+    </Flex>
+    {/* <HStack mt={4} spacing={4} justifyContent="flex-end">
+        <IconButton
+            aria-label="Upvote"
+            color="gray.600"
+            icon={<AiOutlineArrowUp />}
+            onClick={(event) => {
+                event.stopPropagation();
+                handleVote('up');
+            }}
+        />
+        <Text color="gray.600" fontSize="lg">
+            {professorData.votes}
+        </Text>
+        <IconButton
+            aria-label="Downvote"
+            color="gray.600"
+            icon={<AiOutlineArrowDown />}
+            onClick={(event) => {
+                event.stopPropagation();
+                handleVote('down');
+            }}
+        />
+    </HStack> */}
+        </CardBody>
+        <Divider 
+            color="gray.400"
+        />
+        <CardFooter
+            color="gray.400"
+        >
+            {professorData.votes} votes | { professorData.votes - professorData.day_start.score} votes on day
+        </CardFooter>
             </MotionCard>
             <CardModal
                 professorData={professorData}

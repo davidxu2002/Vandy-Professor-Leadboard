@@ -6,6 +6,7 @@ import Navbar from "@/components/Navbar";
 import useAuth from "@/hooks/useAuth";
 import LoadingIndicator from "@/components/Utilities/LoadingIndicator";
 import NotConnected from "@/components/Layout/NotConnected";
+import FirstLoginHandler from './FirstLogin/index';
 
 interface Props {
     children: React.ReactNode,
@@ -21,6 +22,7 @@ const Layout: React.FC<Props> = ({ children, authGate }) => {
             maxW={'6xl'}
             py={8}
         >
+            {/* <FirstLoginHandler/> */} 
             <Flex
                 direction={'column'}
             >

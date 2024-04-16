@@ -1,5 +1,10 @@
 import React, { useState, useEffect } from 'react';
-import { Box, Heading, VStack, Spinner, Button } from "@chakra-ui/react";
+import { Box, Center, Heading, VStack, Spinner, Button, NumberInput, NumberInputField,
+  NumberInputStepper,
+  NumberIncrementStepper,
+  NumberDecrementStepper, 
+  Badge,
+} from "@chakra-ui/react";
 import { Professor } from '@/types/Professor';
 import ProfessorCard from '../ProfessorCard/index';
 import useFeed from "@/hooks/feed/useFeed";
@@ -103,6 +108,26 @@ const HomePage = () => {
           align="center"
           p={6}
         >
+          <Box
+    bg='white'
+    w='100%'
+    p='4'
+    borderRadius="lg"
+    boxShadow="md" // Adding a slight shadow for depth
+    mb="" // Adding margin bottom for separation from other elements
+>
+    <Center>
+        <Heading
+            as="h1" // Using semantic HTML by specifying it as an h1
+            size="lg" // Adjusting the size of the heading
+            fontWeight="bold" // Making the heading bold for emphasis
+            color="gray.800" // Setting a darker color for better visibility
+            ml='2'
+        > Vandy Professor Leaderboard
+        </Heading>
+    </Center>
+</Box>
+
             <ExploreHeader
               subjectId={subjectId}
               setSubjectId={setSubjectId}
@@ -110,13 +135,15 @@ const HomePage = () => {
               setProfessor={setProfessor}
               sortBy={sortBy}
               setSortBy={setSortBy}
+              numProf={numProf}
+              setNumProf={setNumProf}
             />
             <VStack
                 w={'100%'}
                 spacing={4}
-                height='690px'
+                // height='690px'
                 overflowY='auto'
-                onScroll={handleScroll}
+                // onScroll={handleScroll}
             >
             <HomeModal />
             {/* This part could probably be made into a separate component? */}
@@ -129,8 +156,8 @@ const HomePage = () => {
                     onToggleAlert={onToggle}
                 />
             ))}
-              {endScroll && <Spinner></Spinner>}
-        </VStack>
+              {/* {endScroll && <Spinner></Spinner>} */}
+            </VStack>
       </VStack>
       </>
 

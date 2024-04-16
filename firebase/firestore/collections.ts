@@ -18,3 +18,9 @@ export const REPORTS_COLLECTION = 'reports';
 
 // name of the subjects collection in Firebase
 export const SUBJECTS_COLLECTION = 'subjects';
+
+// name of the users collection in Firebase
+export const USERS_COLLECTION = 'users';
+
+// name of the users collection in Firebase
+export const PROFESSOR_VOTES_COLLECTION = 'professor_votes';

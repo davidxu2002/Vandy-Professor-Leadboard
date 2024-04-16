@@ -36,12 +36,11 @@ const SubjectMenu: React.FC<Props> = ({ subjectId, setSubjectId, description, on
 
     return (
         <AutoCompleteMenu
-            label={"Department"}
             value={subjectId}
             description={description}
             inputValue={inputValue}
             setInputValue={handleInputChange}
-            placeholder={"Find a Department"}
+            placeholder={"Filter by Department"}
             options={(hits).map(subject => subject.objectID)}
             optionLabels={(hits).map(subject => subject.objectID)}
             onSelect={ setSubjectId}

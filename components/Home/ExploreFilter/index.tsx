@@ -1,6 +1,8 @@
 import React from 'react';
 
-import {Card, Flex, VStack} from "@chakra-ui/react";
+import {Card, Flex, FormLabel, VStack, NumberInput, NumberInputField,   NumberInputStepper,
+    NumberIncrementStepper,
+    NumberDecrementStepper,} from "@chakra-ui/react";
 
 import ProfessorMenu from '../Utilities/FormComponents/ProfessorMenu';
 import SubjectMenu from '../Utilities/FormComponents/SubjectMenu';
@@ -19,9 +21,24 @@ interface Props {
     setProfessor: (professor: Professor | null) => void,
     sortBy: SortBy,
     setSortBy: (sortBy: SortBy) => void,
+    numProf: number,
+    setNumProf: (numProf: number) => void,
 }
 
-const ExploreHeader: React.FC<Props> = ({ subjectId, setSubjectId, professor, setProfessor, sortBy, setSortBy }) => {
+const ExploreHeader: React.FC<Props> = ({ subjectId, 
+    setSubjectId, 
+    professor, 
+    setProfessor, 
+    sortBy, 
+    setSortBy,
+    numProf,
+    setNumProf}) => {
+
+    const handleNumberChange = (valueString) => {
+        const newValue = parseInt(valueString, 10);
+        setNumProf(newValue);
+    };
+
     return (
         <Card
             width={'100%'}
@@ -29,7 +46,7 @@ const ExploreHeader: React.FC<Props> = ({ subjectId, setSubjectId, professor, se
         >
             <VStack
                 width={'100%'}
-                spacing={8}
+                spacing={2}
                 alignItems={'flex-start'}
             >
                 <Flex
@@ -39,6 +56,9 @@ const ExploreHeader: React.FC<Props> = ({ subjectId, setSubjectId, professor, se
                     w={'100%'}
                     flexDirection={{ base: 'column', md: 'row' }}
                 >
+                    <FormLabel>
+                    Department
+                    </FormLabel>
                     <InstantSearch
                         searchClient={searchClient}
                         indexName={subjectIndex}
@@ -48,12 +68,17 @@ const ExploreHeader: React.FC<Props> = ({ subjectId, setSubjectId, professor, se
                             setSubjectId={setSubjectId}
                         />
                     </InstantSearch>
-                    <InstantSearch searchClient={searchClient} indexName={professorIndex}>
-                        <ProfessorMenu
-                            professor={professor}
-                            setProfessor={setProfessor}
-                        />
-                    </InstantSearch>
+                    
+                    <FormLabel>
+                    Places
+                    </FormLabel>
+                    <NumberInput step={1} value={numProf ? numProf : 1} min={1} onChange={handleNumberChange}>
+                        <NumberInputField/>  
+                        <NumberInputStepper>
+                            <NumberIncrementStepper />
+                            <NumberDecrementStepper />
+                        </NumberInputStepper>
+                    </NumberInput>
                 </Flex>
                 <SortByRadio
                     sortBy={sortBy}

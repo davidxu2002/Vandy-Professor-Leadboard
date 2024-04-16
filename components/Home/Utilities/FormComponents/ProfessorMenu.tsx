@@ -34,7 +34,6 @@ const ProfessorMenu: React.FC<Props> = ({ professor, setProfessor, description, 
 
     return (
         <AutoCompleteMenu
-            label={"Professor"}
             value={professor}
             description={description}
             inputValue={inputValue}
@@ -42,7 +41,7 @@ const ProfessorMenu: React.FC<Props> = ({ professor, setProfessor, description, 
             placeholder={"Find a Professor"}
             options={hits.map(professor => ({
                 id: professor.objectID,
-                name: professor.name as string
+                name: professor.name as string,
             })) || []}
             optionLabels={(hits || []).map(professor => professor.name as string)}
             onSelect={setProfessor}
