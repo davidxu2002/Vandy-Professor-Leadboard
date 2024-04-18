@@ -16,9 +16,7 @@ import {
 } from '@chakra-ui/react'
 import { CloseButton } from '@chakra-ui/react';
 import { useDisclosure } from '@chakra-ui/react';
-import { motion } from 'framer-motion';
 
-import { Routes } from "../../pages/Profile/Routes"
 import ExploreHeader from './ExploreFilter/index';
 
 const HomePage = () => {
@@ -44,7 +42,7 @@ const HomePage = () => {
       if (isOpen) {
         const timeout = setTimeout(() => {
           onClose();
-          onToggle(false);
+          onToggle();
         }, 3000); // Close the alert after 3 seconds
   
         return () => clearTimeout(timeout);

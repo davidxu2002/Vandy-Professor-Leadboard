@@ -48,7 +48,6 @@ const UpvoteDownvote: React.FC<Props> = ({ onUpvote, onDownvote, voteStatus, sco
                 onClick={handleUpvote}
             />
             <Text
-                color='black'
                 fontWeight={'bold'}
                 fontSize={scoreSize}
                 color={scoreColor}

@@ -157,7 +157,7 @@ export default function VotePage(props: VotePageProps) {
           >
             
             <Stat>
-              <StatLabel>You've cast <b>{totalVotes} votes</b></StatLabel>
+              <StatLabel>You&apos;ve cast <b>{totalVotes} votes</b></StatLabel>
               <StatHelpText></StatHelpText>
             </Stat>
           </Box>
@@ -171,7 +171,7 @@ export default function VotePage(props: VotePageProps) {
             transition="background-color 0.2s"
           >
             <Stat>
-              <StatLabel>You've voted for <b>{uniqueProfessorsVoted}</b> different professors</StatLabel>
+              <StatLabel>You&apos;ve voted for <b>{uniqueProfessorsVoted}</b> different professors</StatLabel>
               <StatHelpText></StatHelpText>
             </Stat>
           </Box>
@@ -201,7 +201,7 @@ export default function VotePage(props: VotePageProps) {
             transition="background-color 0.2s"
           >
             <Stat>
-              <StatLabel>You've voted the most for <b>{mostVotedProfessor}</b> ({mostProfessorVotes} votes)</StatLabel>
+              <StatLabel>You&apos;ve voted the most for <b>{mostVotedProfessor}</b> ({mostProfessorVotes} votes)</StatLabel>
               <StatHelpText></StatHelpText>
             </Stat>
           </Box>

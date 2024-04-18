@@ -5,6 +5,6 @@ export interface Professor {
     name: string
     votes: number
     subject: Subject
-    current_place: number
-    day_start: DayStart
+    current_place?: number
+    day_start?: DayStart
 }

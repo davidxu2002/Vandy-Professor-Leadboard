@@ -76,13 +76,14 @@ const fetchProfessor = async (professorId: string): Promise<Professor> => fetchD
         id: professor.$id,
         name: professor.name, 
         votes: professor.votes, 
-        subject: professor.subject
+        subject: professor.subject,
+
     }))
     .catch(() => ({
         name: "Unknown",
-        id: professorId, 
+        id: professorId,
         votes: 0, 
-        subject: 
+        subject: "subject"
     }));
 
 export const fetchSubjects = async (page: number): Promise<Subject[]> => {

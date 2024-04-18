@@ -34,7 +34,7 @@ const ExploreHeader: React.FC<Props> = ({ subjectId,
     numProf,
     setNumProf}) => {
 
-    const handleNumberChange = (valueString) => {
+    const handleNumberChange = (valueString: string) => {
         const newValue = parseInt(valueString, 10);
         setNumProf(newValue);
     };
