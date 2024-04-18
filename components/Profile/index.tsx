@@ -21,7 +21,7 @@ const Profile = () => {
 
     return (
         <VStack w={'100%'} spacing={4}>
-            <Heading color='#2B7A78'>My Profile</Heading>
+            <Heading pt={5} color='#2B7A78'>My Profile</Heading>
             <Text color='#2B7A78'>View your past activity here</Text>
             {/* Display user's comments */}
             <UserReviews userId={user.uid} />
