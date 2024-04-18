@@ -39,7 +39,7 @@ const Comments: React.FC<Props> = ({ reviewId }) => {
                             />
                         ))
                     ) : (
-                        <Text>
+                        <Text color='#2b7a78'>
                             No Comments!
                         </Text>
                     )
